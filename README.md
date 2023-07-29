@@ -5,8 +5,7 @@ https://unayo.github.io/longtermcare/
 
 ## 環境變數
 
-專案 : Vue3 ＋ tailwindcss 3 ＋ element-plus
-      vue3-carousel ＋ vue-kinesis
+專案 : Vue3 ＋ tailwindcss 3 ＋ element-plus + vue3-carousel ＋ vue-kinesis
 環境 : node v16.14.2
 
 ## Project Setup
