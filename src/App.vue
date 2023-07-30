@@ -1,7 +1,7 @@
 <template>
   <div class="mt-[-100px]">
     <Menu></Menu>
-    <RouterView />
+    <RouterView class="overflow-hidden" />
     <Footer></Footer>
     <el-backtop :right="23" :bottom="23" />
   </div>

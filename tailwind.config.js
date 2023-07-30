@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       lineHeight: {
         title: '47px',
+        titleM: '32px',
       },
       colors: {
         'green': '#008088',

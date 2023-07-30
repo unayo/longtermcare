@@ -1,9 +1,11 @@
 <script>
-import { ref, reactive } from 'vue'
-
+import { ref, reactive, watch } from 'vue'
+import { storeGlobal } from '@/stores/global.js'
 
 export default {
   setup() {
+    const store_Global = storeGlobal()
+    const drawer = ref(false)
 
     const menu = reactive([
       {
@@ -23,20 +25,41 @@ export default {
         link: '#map',
       }
     ])
+    const nowLink = ref(null)
+    watch(()=>store_Global.menu, (newval)=>{
+      if(newval) {
+        nowLink.value = newval
+      }
+    })
+    const ckSubMenu = (title, isphone) => {
+      // mainTitle
+      if (!isphone) {
+        // web & main
+        store_Global.setMenu({ menuTitle: title})
+      } else if (isphone) {
+        // phone & main
+        store_Global.setMenu({ menuTitle: title})
+        drawer.value = false
+      }
 
-    const drawer = ref(false)
+      if (isphone) {
+        // phone drawer close
+        drawer.value = false
+      }
+    }
+
     const ckDrawer = () => {
       drawer.value = true
     }
 
-    return { menu, drawer, ckDrawer }
+    return { menu, drawer, ckDrawer, ckSubMenu, nowLink }
   }
 }
 </script>
 
 <template>
   <div class="sticky z-50  top-0 left-0 right-0 bg-white/75 drop-shadow">
-    <div class="container mx-auto p-0">
+    <div class="px-5 md:px-0 container mx-auto p-0">
       <el-menu class="items-center py-3 bg-white/50" mode="horizontal" :ellipsis="false">
         <a href="/">
           <img src="/images/logo.png" alt="logo" class="h-[42px]" />
@@ -44,16 +67,18 @@ export default {
         <div class="flex-grow"></div>
         <!-- ----- web start ----- -->
         <div v-for="(item, index) in menu" :key="index" class="hidden md:block">
-          <el-menu-item >
-            <a :href="item.link">{{ item.mainTitle }}</a>
+          <el-menu-item
+            :index="index" 
+            >
+            <a :href="item.link" :class="{
+              'is-active': nowLink === item.link,
+            }" @click="ckSubMenu(item.mainTitle, false)">{{ item.mainTitle }}</a>
           </el-menu-item>
         </div>
         <!-- ----- web end ----- -->
         <!-- ----- iphone start ----- -->
-        <button class="menuToggle block md:hidden" @click="ckDrawer">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button class="block md:hidden w-6" @click="ckDrawer">
+          <img src="/images/icon--burger.png" alt="icon-burger">
         </button>
         <!-- ----- iphone end ----- -->
       </el-menu>
@@ -61,12 +86,12 @@ export default {
   </div>
   <el-drawer v-model="drawer" :show-close="true" size="100%">
     <template #header>
-      <img src="/images/logo.png" alt="logo" class="h-[42px] object-contain" />
+      <img  src="/images/logo.png" alt="logo" class="h-[42px] object-contain" />
     </template>
     <template #default>
       <div class="flex flex-wrap gap-6 flex-col justify-around items-stretch text-center p-16">
         <template v-for="(item, index) in menu" :key="index">
-            <a :href="item.link">{{ item.mainTitle }}</a>
+            <a @click="ckSubMenu(item.mainTitle, true)" :href="item.link" class="font-bold">{{ item.mainTitle }}</a>
             <hr v-if="index+1 !== menu.length" /> 
         </template>
       </div>
@@ -117,17 +142,8 @@ $drop-shadow-lg: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
   color: $stone-950;
   background-color: $stone-300;
 }
-
-// customer
-.menuToggle {
-  z-index: 1;
-  span {
-    display: block;
-    width: 33px;
-    height: 1.5px;
-    margin-bottom: 8px;
-    position: relative;
-    background: rgb(114, 118, 123);
-  }
+.el-menu-item.is-active {
+  color: #333;
 }
+
 </style>
