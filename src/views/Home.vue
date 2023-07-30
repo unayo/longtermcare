@@ -27,14 +27,14 @@ export default {
   },
   setup() {
     const items = ref([
-      '/images/live1.png',
-      '/images/live2.png',
-      '/images/live3.png'
+      './images/live1.png',
+      './images/live2.png',
+      './images/live3.png'
     ])
     const itemsM = ref([
-      '/images/live1-m.png',
-      '/images/live2-m.png',
-      '/images/live3-m.png'
+      './images/live1-m.png',
+      './images/live2-m.png',
+      './images/live3-m.png'
     ])
     const breakpoints = {
       // 300 and up
@@ -120,7 +120,7 @@ export default {
         </template>
       </Title>
     </div>
-    
+    <img class="ml-auto mr-[110px] pt-[70px] pr-[22px] pl-[70px]" src="/images/block2.png" alt="liner">
   </section>
   <section id="care" class="section">
     <div class="px-5 md:px-0 container pt-10 md:pt-20 mb-8 mx-auto ">
