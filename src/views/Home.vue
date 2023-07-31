@@ -182,7 +182,7 @@ export default {
         </template>
       </Title>
     </div>
-    <div class="container mx-auto flex flex-wrap justify-evenly relative z-[2]">
+    <div class="px-5 md:px-0 container mx-auto flex flex-wrap justify-evenly relative z-[2]">
       <Knowledge
         class="mt-10 md:mt-[60px]"
         :name="{
@@ -192,7 +192,7 @@ export default {
         }">
       </Knowledge>
       <Knowledge
-      class="mt-10 md:mt-0"
+      class="w-full md:w-[230px] mt-10 md:mt-0"
         :name="{
             img: './images/know2.png',
             title: '申請流程',
