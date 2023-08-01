@@ -59,7 +59,7 @@ export default {
 
 <template>
   <div class="sticky z-50  top-0 left-0 right-0 bg-white/75 drop-shadow">
-    <div class="px-5 md:px-0 container mx-auto p-0">
+    <div class="px-5 md:px-2 container mx-auto p-0">
       <el-menu class="items-center py-3 bg-white/50" mode="horizontal" :ellipsis="false">
         <a href="/">
           <img src="/images/logo.png" alt="logo" class="h-[42px]" />
